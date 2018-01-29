@@ -6,13 +6,12 @@ public class MyInitClass {
     private final String PREFIX = "_v.";
     private final String EXTENTION = ".xml";
     private String orgInputFile ;
-    private String tmpFile = "C:\\workspace\\VersionUpdater\\001\\src\\main\\resources\\tempTmp.xml";
+    private String tmpFile = System.getProperty("user.dir") + "\\tempTmp.xml";
     private Long version;
     private String outputFile;
 
 
     public void readFileToBuffor(String orgInputFile) {
-        //File file = new File(orgInputFile);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tmpFile))) {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(orgInputFile))) {
                 String currentLine;
