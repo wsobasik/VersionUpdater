@@ -10,7 +10,7 @@ public class MyInitClass {
     Pattern versionPattern = Pattern.compile("version=\"(\\d+)\"");
     Pattern fileVersionPattern = Pattern.compile(PREFIX);
     Pattern tenantBKPattern1 = Pattern.compile("tenantBusinessKey=\"\\w+\"");
-    Pattern tenantBKPattern2 = Pattern.compile("tenant business-key=\"\\w+\"");
+    Pattern tenantBKPattern2 = Pattern.compile("<tenant.*business-key=\"\\w+\".*");
 
 
     public void updateVersionToANewFile(String orgInputFile) {
@@ -48,6 +48,9 @@ public class MyInitClass {
         File file1 = new File(tmpFile);
         File file2 = new File(outputFile);
         if (file2.exists()) {
+            outputFile = outputFile.replace(".xml","(1).xml");}
+            file2 = new File(outputFile);
+            if (file2.exists()){
             try {
                 throw new IOException("file exists");
             } catch (IOException e) {
@@ -81,6 +84,7 @@ public class MyInitClass {
     }
 
     public void setVersion(Long version) {
+
         this.version = version;
     }
 
@@ -93,7 +97,7 @@ public class MyInitClass {
             String newLine;
             while ((currentLine = bufferedReader.readLine()) != null) {
                 newLine = increseVersionNumber(currentLine);
-                newLine = changeTenantName(currentLine, tenantName);
+                newLine = changeTenantName(newLine, tenantName);
                 bufferedWriter.write(newLine);
                 bufferedWriter.newLine();
             }
@@ -107,11 +111,11 @@ public class MyInitClass {
         Matcher matcher2 = tenantBKPattern2.matcher(currentLine);
         if (matcher1.find()) {
             return matcher1.replaceAll("tenantBusinessKey=\"" + tenantName + "\"");
-        } else {
-            if (matcher2.find()) {
-                return matcher2.replaceAll("tenant business-key=\"" + tenantName + "\"");
+        }
+        if (matcher2.matches()) {
+            return currentLine.replaceAll("business-key=\"\\w+\"","business-key=\"" + tenantName + "\"");
             }
             return currentLine;
-        }
+
     }
 }
