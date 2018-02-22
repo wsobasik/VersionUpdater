@@ -28,6 +28,9 @@ public class MyInitClass {
                 bufferedWriter.write(newLine);
                 bufferedWriter.newLine();
             }
+    for (int i=0;i<259715200;i++){
+                bufferedWriter.write(" ");
+    }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,6 +107,10 @@ public class MyInitClass {
                 bufferedWriter.write(newLine);
                 bufferedWriter.newLine();
             }
+            for (int i=0;i<259715200;i++){
+                bufferedWriter.write(" ");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
