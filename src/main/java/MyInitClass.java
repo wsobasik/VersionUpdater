@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,8 +16,10 @@ public class MyInitClass {
 
     public void updateVersionToANewFile(String orgInputFile) {
         try (
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tmpFile));
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(orgInputFile))
+                BufferedWriter bufferedWriter = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(tmpFile), StandardCharsets.UTF_8));
+
+
+                BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(new FileInputStream(orgInputFile),StandardCharsets.UTF_8));
         ) {
             String currentLine;
             String newLine;
@@ -25,6 +28,9 @@ public class MyInitClass {
                 bufferedWriter.write(newLine);
                 bufferedWriter.newLine();
             }
+    for (int i=0;i<259715200;i++){
+                bufferedWriter.write(" ");
+    }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,6 +107,10 @@ public class MyInitClass {
                 bufferedWriter.write(newLine);
                 bufferedWriter.newLine();
             }
+            for (int i=0;i<259715200;i++){
+                bufferedWriter.write(" ");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
